@@ -1,23 +1,35 @@
 const path = require("path")
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
 
 module.exports = {
   entry: {
-    home: path.resolve(__dirname, "../src/index.ts")
+    home: path.resolve(__dirname, "../src/pages/home/index.ts"),
+    share: path.resolve(__dirname, "../src/pages/share/index.ts")
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'home',
-      template: path.resolve(__dirname, "../src/home/index.html"),
+      filename: 'home/index.html',
+      template: path.resolve(__dirname, "../src/pages/home/index.html"),
       chunks: ['home']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'share/index.html',
+      template: path.resolve(__dirname, "../src/pages/share/index.html"),
+      chunks: ['share']
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
     })
   ],
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.(ts|js)$/,
         use: [
           {
             loader: "babel-loader",
@@ -32,19 +44,6 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.less$/,
-        use: ["style-loader", "css-loader", {
-          loader: "less-loader",
-          options: {
-            javascriptEnabled: true
-          }
-        }]
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      },
-      {
         test: /\.(png|svg|jpg|gif)$/,
         use: ["file-loader"]
       },
@@ -54,7 +53,7 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        use: ["raw-loader"]
+        use: ["html-loader"]
       }
     ]
   },
