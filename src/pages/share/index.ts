@@ -1,5 +1,6 @@
 import './index.less'
 import '../home/main.css'
+import '../../libs/css/a.css'
 
 import swiper from 'swiper'
 

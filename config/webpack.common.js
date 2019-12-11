@@ -9,7 +9,7 @@ module.exports = {
     share: path.resolve(__dirname, "../src/pages/share/index.ts"),
     test1: path.resolve(__dirname, "../src/pages/test1/index.ts"),
     test2: path.resolve(__dirname, "../src/pages/test2/index.ts"),
-    test3: path.resolve(__dirname, "../src/pages/test2/index.ts")
+    test3: path.resolve(__dirname, "../src/pages/test3/index.ts")
   },
   plugins: [
     new CleanWebpackPlugin(),
