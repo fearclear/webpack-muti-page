@@ -11,13 +11,11 @@ module.exports = merge(common, {
     },
     splitChunks: {
       cacheGroups: {
-        // common: {
-        //   test: /\.(ts|js)$/,
-        //   chunks: 'all',
-        //   name: 'common',
-        //   filename: path.resolve(__dirname, '../src/common/index.ts'),
-        //   enforce: true
-        // }
+        vendor: {
+          filename: 'vendor/[id].[hash].bundle.js',
+          test: /\.(ts|js)$/,
+          chunks: 'all',
+        }
       }
     }
   },
