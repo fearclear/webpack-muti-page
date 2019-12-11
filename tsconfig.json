@@ -14,7 +14,8 @@
       "es7"
     ],
     "types": [
-      "node"
+      "node",
+      "jquery"
     ]
   },
   "exclude": [
