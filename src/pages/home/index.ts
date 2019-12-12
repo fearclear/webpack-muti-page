@@ -5,4 +5,5 @@ import 'libs/css/a.less'
 
 $(document).ready(() => {
   console.log('ready')
+  console.log('home')
 })

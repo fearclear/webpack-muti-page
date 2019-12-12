@@ -5,8 +5,16 @@
   "description": "webpack-muti-page",
   "scripts": {
     "lint": "eslint src/**/*.*",
-    "dev": "webpack-dev-server --config config/webpack.dev.js",
+    "dev": "nodemon --exec \"webpack-dev-server --config\" config/webpack.dev.js",
     "build": "webpack --config config/webpack.prod.js --progress"
+  },
+  "nodemonConfig": {
+    "ignore": ["node_modules/*"],
+    "watch": [
+      "config/",
+      "src/router.js"
+    ],
+    "delay": "2500"
   },
   "keywords": [
     "webpack-muti-page"

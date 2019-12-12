@@ -26,7 +26,9 @@ module.exports = merge(common, {
     })
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: './src',
+    watchContentBase: true,
+    overlay: true,
     // proxy: {
     //   "/kcx-commodity-platform/api": {
     //     "target": 'https://www.kcbear.com',
