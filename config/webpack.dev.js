@@ -16,6 +16,10 @@ module.exports = merge(common, {
           "less-loader"
         ]
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader']
+      },
     ]
   },
   plugins: [

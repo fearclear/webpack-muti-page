@@ -43,6 +43,17 @@ module.exports = merge(common, {
           "less-loader"
         ]
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [{
+          loader: "file-loader",
+          options: {
+            name() {
+              return 'images/[name].[hash].[ext]'
+            }
+          }
+        }]
+      },
     ]
   },
   output: {
