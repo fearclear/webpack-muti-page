@@ -10,7 +10,7 @@ module.exports = merge(common, {
   mode: 'production',
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-    runtimeChunk:{
+    runtimeChunk: {
       name: entrypoint => entrypoint.name
     },
     splitChunks: {
@@ -52,21 +52,13 @@ module.exports = merge(common, {
           options: {
             outputPath(url, resourcePath, context) {
               const relativePath = path.relative(context, resourcePath)
-              // windows
-              if(/src\\pages\\/.test(relativePath)) {
-                let path = relativePath.replace(/src\\pages\\/, '')
-                const pathList = path.split('\\')
+              const reg = new RegExp('src' + `\\${path.sep}` + 'pages' + `\\${path.sep}`)
+              if (reg.test(relativePath)) {
+                let filePath = relativePath.replace(reg, '')
+                const pathList = filePath.split(path.sep)
                 pathList.pop()
-                path = pathList.join('/')
-                return `${path}/${url}`
-              }
-              // unix/linux
-              if(/src\/pages\//.test(relativePath)) {
-                let path = relativePath.replace(/src\/pages\//, '')
-                const pathList = path.split('\/')
-                pathList.pop()
-                path = pathList.join('/')
-                return `${path}/${url}`
+                filePath = pathList.join('/')
+                return `${filePath}/${url}`
               }
               return `assets/${url}`
             }
