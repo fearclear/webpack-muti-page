@@ -1,5 +1,6 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
+const CleanWebpackPlugin = require("clean-webpack-plugin")
 const TerserJSPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -29,6 +30,7 @@ module.exports = merge(common, {
     }
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name]/[name].[hash].css'
     })
@@ -48,8 +50,25 @@ module.exports = merge(common, {
         use: [{
           loader: "file-loader",
           options: {
-            name() {
-              return 'images/[name].[hash].[ext]'
+            outputPath(url, resourcePath, context) {
+              const relativePath = path.relative(context, resourcePath)
+              // windows
+              if(/src\\pages\\/.test(relativePath)) {
+                let path = relativePath.replace(/src\\pages\\/, '')
+                const pathList = path.split('\\')
+                pathList.pop()
+                path = pathList.join('/')
+                return `${path}/${url}`
+              }
+              // unix/linux
+              if(/src\/pages\//.test(relativePath)) {
+                let path = relativePath.replace(/src\/pages\//, '')
+                const pathList = path.split('\/')
+                pathList.pop()
+                path = pathList.join('/')
+                return `${path}/${url}`
+              }
+              return `assets/${url}`
             }
           }
         }]

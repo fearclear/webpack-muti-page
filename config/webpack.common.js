@@ -1,7 +1,6 @@
 const path = require("path")
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const CleanWebpackPlugin = require("clean-webpack-plugin")
 const { entry, htmlWebPackTemplate } = require('../src/router')
 
 const htmlPlugins = htmlWebPackTemplate.map(item =>new HtmlWebpackPlugin(item))
@@ -9,7 +8,6 @@ const htmlPlugins = htmlWebPackTemplate.map(item =>new HtmlWebpackPlugin(item))
 module.exports = {
   entry,
   plugins: [
-    new CleanWebpackPlugin(),
     ...htmlPlugins,
     new webpack.ProvidePlugin({
       $: 'jquery',
