@@ -52,7 +52,7 @@ module.exports = merge(common, {
           options: {
             outputPath(url, resourcePath, context) {
               const relativePath = path.relative(context, resourcePath)
-              const reg = new RegExp('src' + `\\${path.sep}` + 'pages' + `\\${path.sep}`)
+              const reg = new RegExp(`src\\${path.sep}pages\\${path.sep}`)
               if (reg.test(relativePath)) {
                 let filePath = relativePath.replace(reg, '')
                 const pathList = filePath.split(path.sep)

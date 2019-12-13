@@ -36,6 +36,4 @@ function fileDisplay(filePath) {
     }
   })
 }
-let sep = '\\' + path.sep
-console.log(sep)
-console.log(new RegExp('src'+sep))
+console.log(new RegExp(`src\\${path.sep}pages\\${path.sep}`))
