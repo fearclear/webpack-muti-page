@@ -1,41 +1,40 @@
 var fs = require('fs')
 var path = require('path')
-const fsPromise = fs.promises
 
 /**
  * 文件遍历方法
  * @param filePath 需要遍历的文件路径
  */
-async function fileDisplay(filePath) {
+function fileDisplay(filePath) {
   let todos = 0, ended = false
-  return new Promise((resolve, reject) => {
-    _fileDisplay(filePath, [])
-    async function _fileDisplay(filePath, fileList) {
-      const files = await fsPromise.readdir(filePath)
-      todos += files.length
-      for (let i = 0; i < files.length; i++) {
-        const filename = files[i]
-        const filedir = path.join(filePath, filename)
-        const stats = await fsPromise.stat(filedir)
-        const isFile = stats.isFile()
-        const isDir = stats.isDirectory()
-        todos--
-        if (isFile) {
-          fileList.push(filedir)
-          if (todos === 0) {
-            ended = true
-            break
-          }
-        }
-        if (isDir) {
-          _fileDisplay(filedir, fileList)
+  function _fileDisplay(filePath, fileList) {
+    const files = fs.readdirSync(filePath)
+    todos += files.length
+    for (let i = 0; i < files.length; i++) {
+      const filename = files[i]
+      const filedir = path.join(filePath, filename)
+      const stats = fs.statSync(filedir)
+      const isFile = stats.isFile()
+      const isDir = stats.isDirectory()
+      todos--
+      if (isFile) {
+        fileList.push(filedir)
+        if (todos === 0) {
+          ended = true
+          break
         }
       }
-      if (ended) {
-        resolve(fileList)
+      if (isDir) {
+        _fileDisplay(filedir, fileList)
       }
     }
-  })
+    if (ended) {
+      return fileList
+    }
+  }
+
+  const fileList = _fileDisplay(filePath, [])
+  return fileList
 }
 
 /**
@@ -75,36 +74,32 @@ const extensions = {
 const entry = {}
 const htmlWebPackTemplate = []
 
-async function main() {
-  //获取文件列表
-  const fileList = await fileDisplay(root)
-  for (let i = 0; i < fileList.length; i++) {
-    const filePath = fileList[i]
-    // 是否在支持的模板列表里
-    if (extensions.html.some(item => new RegExp(`\\${item}$`).test(filePath))) {
-      const fileInfo = path.parse(filePath)
-      switch (fileInfo.name) {
-        case 'index':
-          const entryFile = findPath(fileInfo.dir, fileInfo.name, extensions.js)
-          if (entryFile) {
-            const base = path.relative(root, fileInfo.dir).replace(path.sep, '_')
-            entry[base] = entryFile
-            const chunk = base.split(path.sep).join('_')
-            htmlWebPackTemplate.push({
-              chunks: [chunk],
-              filename: `${base}${path.sep}${fileInfo.base}`,
-              template: filePath
-            })
-          }
-          break
-        default:
-          break
-      }
+//获取文件列表
+const fileList = fileDisplay(root)
+for (let i = 0; i < fileList.length; i++) {
+  const filePath = fileList[i]
+  // 是否在支持的模板列表里
+  if (extensions.html.some(item => new RegExp(`\\${item}$`).test(filePath))) {
+    const fileInfo = path.parse(filePath)
+    switch (fileInfo.name) {
+      case 'index':
+        const entryFile = findPath(fileInfo.dir, fileInfo.name, extensions.js)
+        if (entryFile) {
+          const base = path.relative(root, fileInfo.dir)
+          const chunk = base.replace(path.sep, '_')
+          entry[chunk] = entryFile
+          htmlWebPackTemplate.push({
+            chunks: [chunk],
+            filename: `${base}${path.sep}${fileInfo.base}`,
+            template: filePath
+          })
+        }
+        break
+      default:
+        break
     }
   }
 }
-
-main()
 
 module.exports = {
   entry,

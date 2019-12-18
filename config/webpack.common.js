@@ -20,7 +20,17 @@ module.exports =  {
   module: {
     rules: [
       {
-        test: /\.(ts|js)$/,
+        test: /\.js$/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.ts$/,
         use: [
           {
             loader: "babel-loader",
