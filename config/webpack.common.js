@@ -3,9 +3,11 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { entry, htmlWebPackTemplate } = require('../src/router')
 
+console.log(entry, htmlWebPackTemplate)
+
 const htmlPlugins = htmlWebPackTemplate.map(item =>new HtmlWebpackPlugin(item))
 
-module.exports = {
+module.exports =  {
   entry,
   plugins: [
     ...htmlPlugins,

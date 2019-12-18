@@ -1,133 +1,113 @@
-const fs = require('fs')
-const path = require('path')
+var fs = require('fs')
+var path = require('path')
+const fsPromise = fs.promises
 
+/**
+ * 文件遍历方法
+ * @param filePath 需要遍历的文件路径
+ */
+async function fileDisplay(filePath) {
+  let todos = 0, ended = false
+  return new Promise((resolve, reject) => {
+    _fileDisplay(filePath, [])
+    async function _fileDisplay(filePath, fileList) {
+      const files = await fsPromise.readdir(filePath)
+      todos += files.length
+      for (let i = 0; i < files.length; i++) {
+        const filename = files[i]
+        const filedir = path.join(filePath, filename)
+        const stats = await fsPromise.stat(filedir)
+        const isFile = stats.isFile()
+        const isDir = stats.isDirectory()
+        todos--
+        if (isFile) {
+          fileList.push(filedir)
+          if (todos === 0) {
+            ended = true
+            break
+          }
+        }
+        if (isDir) {
+          _fileDisplay(filedir, fileList)
+        }
+      }
+      if (ended) {
+        resolve(fileList)
+      }
+    }
+  })
+}
+
+/**
+ *
+ * @param {string} fileDir
+ * @param {Array} extensions
+ * @description 获取文件路径
+ */
+function findPath(fileDir, name, extensions) {
+  // 寻找当前目录下文件
+  for (let i = 0; i < extensions.length; i++) {
+    let filePath = path.resolve(fileDir, name + extensions[i])
+    const file = fs.existsSync(filePath)
+    if (file) {
+      return filePath
+    }
+  }
+  return ''
+}
+
+/**
+ * 生成路由主文件
+ */
+
+const root = path.resolve(__dirname, './pages')
+
+// 扩展名(支持的文件扩展列表)
 const extensions = {
+  default: {
+    html: '.html',
+    js: '.ts'
+  },
   html: [".html"],
   js: [".ts", ".js"]
 }
 
-// 页面路由
-const route = [
-  { path: 'home', models: ['home'] },
-  { path: 'share', models: ['share'] },
-  { path: 'test1', models: ['test1'] },
-  { path: 'test2', models: ['test2'] },
-  { path: 'test3', models: ['test3'] },
-]
+const entry = {}
+const htmlWebPackTemplate = []
 
-/**
- *
- * @param {string} name
- * @param {Array} extensions
- * @description 获取文件路径
- */
-function findPath(name, extensions) {
-  // 寻找当前目录下文件
-  for (let i = 0; i < extensions.length; i++) {
-    let tempName = name + extensions[i]
-    let filePath = path.resolve(__dirname, 'pages', tempName)
-    const file = fs.existsSync(filePath)
-    if (file) {
-      return filePath
-    }
-  }
-  // 寻找文件目录下index文件
-  for (let i = 0; i < extensions.length; i++) {
-    let tempName = 'index' + extensions[i]
-    let filePath = path.resolve(__dirname, 'pages', name, tempName)
-    const file = fs.existsSync(filePath)
-    if (file) {
-      return filePath
-    }
-  }
-  return ''
-}
-
-// 获取文件名称
-function getFileName(name, extensions) {
-  // 寻找当前目录下文件
-  for (let i = 0; i < extensions.length; i++) {
-    let tempName = name + extensions[i]
-    let filePath = path.resolve(__dirname, 'pages', tempName)
-    const file = fs.existsSync(filePath)
-    if (file) {
-      return tempName
-    }
-  }
-  // 寻找文件目录下index文件
-  for (let i = 0; i < extensions.length; i++) {
-    let tempName = 'index' + extensions[i]
-    let filePath = path.resolve(__dirname, 'pages', name, tempName)
-    const file = fs.existsSync(filePath)
-    if (file) {
-      return `${name}/${tempName}`
-    }
-  }
-  return ''
-}
-
-/**
- * @param {object} route
- * @returns {Array}
- * @description 用来生成入口文件
- */
-function genEntries(route) {
-  const entry = {}
-  for (let t = 0; t < route.length; t++) {
-    let item = route[t]
-    const filePath = findPath(item.path, extensions.js)
-    if (!filePath) {
-      console.warn(`File "${item.path}" not found.FileType: js.`)
-      continue
-    }
-    entry[item.path] = filePath
-  }
-  return entry
-}
-
-/**
- * @param {object} route
- * @returns {Array}
- * @description 用来生成html模板文件
- */
-function genTemplate(route) {
-  const templateList = []
-  for (let t = 0; t < route.length; t++) {
-    let item = route[t]
-    const templateParams = {
-      chunks: []
-    }
-    item.models = item.models || []
-    const filePath = findPath(item.path, extensions.html)
-    if (!filePath) {
-      console.warn(`File "${item.path}" not found.FileType: html.`)
-      continue
-    }
-    templateParams.filename = getFileName(item.path, extensions.html)
-    templateParams.template = filePath
-    for (let i = 0; i < item.models.length; i++) {
-      let model = item.models[i]
-      if (entry[model]) {
-        templateParams.chunks.push(model)
+async function main() {
+  //获取文件列表
+  const fileList = await fileDisplay(root)
+  for (let i = 0; i < fileList.length; i++) {
+    const filePath = fileList[i]
+    // 是否在支持的模板列表里
+    if (extensions.html.some(item => new RegExp(`\\${item}$`).test(filePath))) {
+      const fileInfo = path.parse(filePath)
+      switch (fileInfo.name) {
+        case 'index':
+          const entryFile = findPath(fileInfo.dir, fileInfo.name, extensions.js)
+          if (entryFile) {
+            const base = path.relative(root, fileInfo.dir).replace(path.sep, '_')
+            entry[base] = entryFile
+            const chunk = base.split(path.sep).join('_')
+            htmlWebPackTemplate.push({
+              chunks: [chunk],
+              filename: `${base}${path.sep}${fileInfo.base}`,
+              template: filePath
+            })
+          }
+          break
+        default:
+          break
       }
     }
-    templateList.push(templateParams)
   }
-  return templateList
 }
 
-const entry = genEntries(route)
-const htmlWebPackTemplate = genTemplate(route)
+main()
 
 module.exports = {
   entry,
   htmlWebPackTemplate
 }
 
-
-
-// {
-//   filename: 'home',
-//   template: path.resolve(__dirname, "../src/pages/home/index.html"),
-//   chunks: ['home']
-// }
