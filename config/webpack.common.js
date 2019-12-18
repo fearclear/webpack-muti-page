@@ -3,8 +3,6 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { entry, htmlWebPackTemplate } = require('../src/router')
 
-console.log(entry, htmlWebPackTemplate)
-
 const htmlPlugins = htmlWebPackTemplate.map(item =>new HtmlWebpackPlugin(item))
 
 module.exports =  {
@@ -50,14 +48,15 @@ module.exports =  {
       },
       {
         test: /\.html$/,
-        use: ["html-loader"]
+        use: ["html-loader?interpolate"]
       }
     ]
   },
   resolve: {
     extensions: [".ts", ".js"],
     alias: {
-      libs: path.resolve(__dirname, '../src/libs')
+      libs: path.resolve(__dirname, '../src/libs'),
+      components: path.resolve(__dirname, '../src/components')
     }
   }
 }
