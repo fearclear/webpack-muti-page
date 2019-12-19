@@ -24,7 +24,8 @@ function fileDisplay(filePath) {
           break
         }
       }
-      if (isDir) {
+      // __开头的文件夹和.开头的文件夹不处理
+      if (isDir &&　filedir.charAt(0) !== '.' && !filedir.startsWith('__')) {
         _fileDisplay(filedir, fileList)
       }
     }

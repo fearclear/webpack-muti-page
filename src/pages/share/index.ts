@@ -12,5 +12,5 @@ $(document).ready(() => {
   console.log('share ready')
 })
 
-
+fetch
 

@@ -9,7 +9,9 @@
     "build": "webpack --config config/webpack.prod.js --progress"
   },
   "nodemonConfig": {
-    "ignore": ["node_modules/*"],
+    "ignore": [
+      "node_modules/*"
+    ],
     "watch": [
       "config/",
       "src/router.js"
@@ -49,6 +51,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "mockjs": "^1.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "raw-loader": "^2.0.0",
     "style-loader": "^0.23.1",
