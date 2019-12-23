@@ -12,6 +12,18 @@
         "<node_internals>/**"
       ],
       "program": "${file}"
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "typeScript",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "${file}"
+      ]
+    },
   ]
 }
