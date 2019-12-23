@@ -53,6 +53,7 @@
 - `2019-12-23 10:46`: 新增[目录约定](#目录约定)功能，规范开发
 - `2019-12-23 12:26`: `index.html`获取不到base路径需要单独处理
 - `2019-12-23 15:11`: 加入单元测试功能，使用`mocha`作为测试库，`power-assert`作为断言库，`intelli-espower-loader`作为js文件额外信息打印，`espower-typescript/guess`作为ts额外信息打印
+- `2019-12-23 15:37`: 更新`mocha`script配置，监听test和src文件夹下的`.test.[jt]s`文件
 
 ## 任务列表
 

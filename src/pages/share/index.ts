@@ -11,6 +11,3 @@ console.log('share')
 $(document).ready(() => {
   console.log('share ready')
 })
-
-fetch
-
