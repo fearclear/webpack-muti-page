@@ -60,7 +60,7 @@ function findPath(fileDir, name, extensions) {
  * 生成路由主文件
  */
 
-const root = path.resolve(__dirname, './pages')
+const root = path.resolve(__dirname, '../src/pages')
 
 // 扩展名(支持的文件扩展列表)
 const extensions = {
@@ -87,11 +87,12 @@ for (let i = 0; i < fileList.length; i++) {
         const entryFile = findPath(fileInfo.dir, fileInfo.name, extensions.js)
         if (entryFile) {
           const base = path.relative(root, fileInfo.dir)
-          const chunk = base.replace(path.sep, '_')
+          const chunk = base.replace(path.sep, '_') || 'index'
           entry[chunk] = entryFile
+          const filename = base ? `${base}${path.sep}${fileInfo.base}` : fileInfo.base
           htmlWebPackTemplate.push({
             chunks: [chunk],
-            filename: `${base}${path.sep}${fileInfo.base}`,
+            filename,
             template: filePath
           })
         }

@@ -3,6 +3,8 @@ const common = require('./webpack.common.js')
 const webpack = require("webpack")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
+const apiMocker = require('mocker-api')
+const fileList = require('./mockFile')
 
 module.exports = merge(common, {
   mode: 'development',
@@ -31,11 +33,22 @@ module.exports = merge(common, {
     })
   ],
   devServer: {
-    contentBase: [
-      path.resolve(__dirname, '../mock'),
-      path.resolve(__dirname, '../src'),
-    ],
+    contentBase: path.resolve(__dirname, '../src'),
     watchContentBase: true,
+    before(app) {
+      apiMocker(app, fileList, {
+        httpProxy: {
+          options: {
+            ignorePath: true,
+          },
+          listeners: {
+            proxyReq: function (proxyReq, req, res, options) {
+              console.log('proxyReq')
+            },
+          },
+        },
+      })
+    },
     overlay: true,
     // proxy: {
     //   "/kcx-commodity-platform/api": {

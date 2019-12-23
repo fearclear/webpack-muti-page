@@ -1,7 +1,7 @@
 const path = require("path")
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const { entry, htmlWebPackTemplate } = require('../src/router')
+const { entry, htmlWebPackTemplate } = require('./router')
 
 const htmlPlugins = htmlWebPackTemplate.map(item =>new HtmlWebpackPlugin(item))
 
