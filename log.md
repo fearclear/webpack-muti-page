@@ -63,7 +63,7 @@
 - [x] 图片路径处理
 - [x] `pages`路径下自动编译
 - [x] html文件复用，引入
-- [ ] mock数据
+- [x] mock数据
 - [ ] 单元测试
 - [ ] layout布局
 
@@ -77,13 +77,10 @@
 ├── mock/                          // mock 文件所在目录，基于 mocker-api
 ├── config/                        // webpack配置
 └── src/                           // 源码目录，可选
-    ├── layouts/index.js           // 全局布局
     ├── pages/                     // 页面目录，里面的文件即路由
         ├── 404.html                 // 404 页面
         ├── page1.js               // 页面 1，任意命名，导出 html 页面
-        ├── page1.test.js          // 用例文件，test 会匹配所有 .test.js 和 .e2e.js 结尾的文件
         └── page2.js               // 页面 2，任意命名
-├── .env                           // 环境变量
 └── package.json
 ```
 
@@ -91,8 +88,8 @@
 
 - 优点
   1. 配置轻量化，仅需三行代码即可以开始开发
-  2. 支持mock数据，在`mock`或`_mock`文件夹下书写mockjs代码即可
-  3. 支持单元测试，`test`文件夹下`.test.js`文件自动加入测试项目
+  2. 支持mock数据，在`mock`文件夹下或`_mock.js`文件中书写mockjs代码即可
+  3. 支持单元测试，`test`文件夹下文件和`.test.js`文件自动加入测试项目
   4. 无需配置即支持ejs模板开发，默认加载`.ejs`文件，路径不存在则使用`.tsx|.ts|.jsx|.js`文件，无需手动配置
   5. 支持`webpack`的配置功能，可以自定义`html-webpack-plugin`的配置实现本项目代码的功能，同时也可以无配置自动加载`pages`文件夹下页面生成html文件
   6. 库文件复用，`libs`文件提取公共包裹
