@@ -82,7 +82,10 @@
     ├── pages/                     // 页面目录，里面的文件即路由
         ├── 404.html                 // 404 页面
         ├── page1.js               // 页面 1，任意命名，导出 html 页面
+        ├── page1.test.js          // 用例文件，umi test 会匹配所有 .test.js 结尾的文件
         └── page2.js               // 页面 2，任意命名
+└── test/                           // 源码目录，可选
+    ├── test1.test.js          // 用例文件
 └── package.json
 ```
 
