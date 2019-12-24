@@ -21,3 +21,7 @@
 // }
 
 // compiler.run(callback)
+
+// export default function() {
+//   console.log('111')
+// }

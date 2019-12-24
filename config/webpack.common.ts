@@ -1,11 +1,11 @@
-const path = require("path")
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const { entry, htmlWebPackTemplate } = require('./router')
+import path from 'path'
+import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { entry, htmlWebPackTemplate } from './router'
 
 const htmlPlugins = htmlWebPackTemplate.map(item =>new HtmlWebpackPlugin(item))
 
-module.exports =  {
+export default {
   entry,
   plugins: [
     ...htmlPlugins,

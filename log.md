@@ -55,6 +55,8 @@
 - `2019-12-23 15:11`: 加入单元测试功能，使用`mocha`作为测试库，`power-assert`作为断言库，`intelli-espower-loader`作为js文件额外信息打印，`espower-typescript/guess`作为ts额外信息打印
 - `2019-12-23 15:37`: 更新`mocha`script配置，监听test和src文件夹下的`.test.[jt]s`文件
 - `2019-12-24 09:37`: 找了layout的代码，但是现在有些犹豫要不要上layout，规则是什么，`umi`的规则是`layout`文件夹下`index.js`和`_layout.js`文件作为layout，本项目考虑配置式layout，因为多页页面可能不是需要很多种布局，可能就一个logo、favicon和copyright不会变
+- `2019-12-24 10:21`: 配置文件和项目文件写法不一致挺别扭的，打算用`@babel/register`注册一下
+- `2019-12-24 13:25`: 项目改用`typescript`管理
 
 ## 任务列表
 
@@ -68,6 +70,7 @@
 - [x] html文件复用，引入
 - [x] mock数据
 - [x] 单元测试
+- [x] `typescript`管理项目
 - [ ] layout布局
 
 ## 目录约定

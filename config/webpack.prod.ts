@@ -1,12 +1,12 @@
-const merge = require('webpack-merge')
-const common = require('./webpack.common.js')
-const CleanWebpackPlugin = require("clean-webpack-plugin")
-const TerserJSPlugin = require('terser-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const path = require('path')
+import merge from 'webpack-merge'
+import common from './webpack.common'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+import TerserJSPlugin from 'terser-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import path from 'path'
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'production',
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],

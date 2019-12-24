@@ -1,5 +1,5 @@
-var fs = require('fs')
-var path = require('path')
+import fs from 'fs'
+import path from 'path'
 
 /**
  * 文件遍历方法
@@ -25,7 +25,7 @@ function fileDisplay(filePath) {
         }
       }
       // __开头的文件夹和.开头的文件夹不处理
-      if (isDir &&　filedir.charAt(0) !== '.' && !filedir.startsWith('__')) {
+      if (isDir && filedir.charAt(0) !== '.' && !filedir.startsWith('__')) {
         _fileDisplay(filedir, fileList)
       }
     }
@@ -73,7 +73,7 @@ const extensions = {
 }
 
 const entry = {}
-const htmlWebPackTemplate = []
+const htmlWebPackTemplate: object[] = []
 
 //获取文件列表
 const fileList = fileDisplay(root)
@@ -103,7 +103,7 @@ for (let i = 0; i < fileList.length; i++) {
   }
 }
 
-module.exports = {
+export {
   entry,
   htmlWebPackTemplate
 }

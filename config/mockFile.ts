@@ -1,7 +1,7 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-function fileDisplay(filePath) {
+function fileDisplay(filePath: string) {
   let todos = 0, ended = false
   function _fileDisplay(filePath, fileList) {
     const files = fs.readdirSync(filePath)
@@ -36,4 +36,4 @@ function fileDisplay(filePath) {
 
 const fileList = fileDisplay(path.resolve(__dirname, '../mock'))
 
-module.exports = fileList
+export default fileList

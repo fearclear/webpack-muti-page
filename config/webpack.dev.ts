@@ -1,13 +1,12 @@
-const merge = require('webpack-merge')
-const common = require('./webpack.common.js')
-const webpack = require("webpack")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const path = require('path')
-const apiMocker = require('mocker-api')
-const fileList = require('./mockFile')
-// const LogPlugin = require('./plugins/log-plugin')
+import merge from 'webpack-merge'
+import webpack from 'webpack'
+import common from './webpack.common'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import path from 'path'
+import apiMocker from 'mocker-api'
+import fileList from './mockFIle'
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   module: {
@@ -37,18 +36,7 @@ module.exports = merge(common, {
     contentBase: path.resolve(__dirname, '../src'),
     watchContentBase: true,
     before(app) {
-      apiMocker(app, fileList, {
-        httpProxy: {
-          options: {
-            ignorePath: true,
-          },
-          listeners: {
-            proxyReq: function (proxyReq, req, res, options) {
-              console.log('proxyReq')
-            },
-          },
-        },
-      })
+      apiMocker(app, fileList)
     },
     overlay: true,
     // proxy: {
