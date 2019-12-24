@@ -1,27 +1,16 @@
-// const webpack = require('webpack')
-// const Compiler = webpack.Compiler
+const pluginName = 'ConsoleLogOnBuildWebpackPlugin'
 
-// const compiler = new Compiler()
+console.log('get')
 
-// compiler.options = {}
+class ConsoleLogOnBuildWebpackPlugin {
+  apply(compiler) {
+    compiler.hooks.run.tap(pluginName, compilation => {
+      if (compilation) {
 
-// class LogPlugin {
-//   apply(compiler) {
-//     compiler.plugin('should-emit', compilation => {
-//       console.warn('should I emit?')
-//       return true
-//     })
-//   }
-// }
+      }
+      console.log("webpack 构建过程开始！")
+    })
+  }
+}
 
-// new LogPlugin().apply(compiler)
-
-// const callback = (err, stats) => {
-//   console.log('Compiler 已经执行。')
-// }
-
-// compiler.run(callback)
-
-// export default function() {
-//   console.log('111')
-// }
+export default ConsoleLogOnBuildWebpackPlugin

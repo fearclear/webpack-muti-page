@@ -5,6 +5,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
 import apiMocker from 'mocker-api'
 import fileList from './mockFIle'
+import ConsoleLogOnBuildWebpackPlugin from './plugins/log-plugin'
 
 export default merge(common, {
   mode: 'development',
@@ -30,7 +31,8 @@ export default merge(common, {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
-    })
+    }),
+    new ConsoleLogOnBuildWebpackPlugin()
   ],
   devServer: {
     contentBase: path.resolve(__dirname, '../src'),
