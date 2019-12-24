@@ -1,13 +1,12 @@
 import assert from 'assert'
 
 describe(__filename, () => {
-  it('查看ts是否成功', () => {
-    assert(true)
-  })
-
-  it('哈哈', () => {
-    const arr = [1,2,3]
-    const two = 1
-    assert(arr.indexOf(2) === two)
+  it('测试typescript', () => {
+    enum Color {
+      Red = '#ff0000',
+      Green = '#00ff00',
+      Blue = '#0000ff'
+    }
+    assert(Color.Blue === '#0000ff')
   })
 })
