@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
 const apiMocker = require('mocker-api')
 const fileList = require('./mockFile')
+// const LogPlugin = require('./plugins/log-plugin')
 
 module.exports = merge(common, {
   mode: 'development',

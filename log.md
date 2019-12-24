@@ -54,6 +54,7 @@
 - `2019-12-23 12:26`: `index.html`获取不到base路径需要单独处理
 - `2019-12-23 15:11`: 加入单元测试功能，使用`mocha`作为测试库，`power-assert`作为断言库，`intelli-espower-loader`作为js文件额外信息打印，`espower-typescript/guess`作为ts额外信息打印
 - `2019-12-23 15:37`: 更新`mocha`script配置，监听test和src文件夹下的`.test.[jt]s`文件
+- `2019-12-24 09:37`: 找了layout的代码，但是现在有些犹豫要不要上layout，规则是什么，`umi`的规则是`layout`文件夹下`index.js`和`_layout.js`文件作为layout，本项目考虑配置式layout，因为多页页面可能不是需要很多种布局，可能就一个logo、favicon和copyright不会变
 
 ## 任务列表
 
