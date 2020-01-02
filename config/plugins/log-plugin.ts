@@ -1,14 +1,19 @@
+import webpack from 'webpack'
+
 const pluginName = 'ConsoleLogOnBuildWebpackPlugin'
 
-console.log('get')
-
 class ConsoleLogOnBuildWebpackPlugin {
-  apply(compiler) {
-    compiler.hooks.run.tap(pluginName, compilation => {
+  apply(compiler: webpack.Compiler) {
+    compiler.hooks.compile.tap(pluginName, compilation => {
       if (compilation) {
 
       }
       console.log("webpack 构建过程开始！")
+    })
+
+    compiler.hooks.done.tap(pluginName, compilation => {
+      if(compilation)
+      console.log('webpack done')
     })
   }
 }

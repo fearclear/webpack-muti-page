@@ -55,8 +55,8 @@ export default {
   resolve: {
     extensions: [".ts", ".js"],
     alias: {
-      libs: path.resolve(__dirname, '../src/libs'),
-      components: path.resolve(__dirname, '../src/components')
+      "libs": path.resolve(__dirname, '../src/libs'),
+      "@": path.resolve(__dirname, '../src')
     }
   }
 }

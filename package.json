@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src/**/*.*",
     "dev": "nodemon --exec \"webpack-dev-server --config\" config/webpack.dev.ts",
-    "build": "webpack --config config/webpack.prod.js --progress",
+    "build": "webpack --config config/webpack.prod.ts --progress",
     "test": "mocha -r intelli-espower-loader -r espower-typescript/guess test/**/*.test.[jt]s src/**/*.test.[jt]s"
   },
   "nodemonConfig": {
