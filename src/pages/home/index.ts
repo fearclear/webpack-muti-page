@@ -3,6 +3,7 @@ import './main.css'
 import 'libs/css/b.less'
 import 'libs/css/a.less'
 import '@/components/header/index'
+import '@/components/footer/index'
 console.log($)
 declare global {
   interface Window {

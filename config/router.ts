@@ -77,7 +77,7 @@ for (let i = 0; i < fileList.length; i++) {
         const entryFile = findPath(fileInfo.dir, fileInfo.name, extensions.js)
         if (entryFile) {
           const base = path.relative(root, fileInfo.dir)
-          const chunk = base.replace(path.sep, '_') || 'index'
+          const chunk = base.replace(path.sep, '/') || 'index'
           entry[chunk] = entryFile
           const filename = base ? `${base}${path.sep}${fileInfo.base}` : fileInfo.base
           htmlWebPackTemplate.push({

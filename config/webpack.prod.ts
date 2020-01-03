@@ -32,7 +32,7 @@ export default merge(common, {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name]/[name].[hash].css'
+      filename: '[name]/[id].[hash].css'
     })
   ],
   module: {
@@ -68,7 +68,7 @@ export default merge(common, {
     ]
   },
   output: {
-    filename: '[name]/[name].[chunkhash].js',
+    filename: '[name]/[id].[chunkhash].js',
     publicPath: '/test/',
     path: path.resolve(__dirname, '../dist')
   }

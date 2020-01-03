@@ -1,7 +1,6 @@
 import merge from 'webpack-merge'
 import webpack from 'webpack'
 import common from './webpack.common'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
 import apiMocker from 'mocker-api'
 import fileList from './mockFIle'
@@ -28,10 +27,6 @@ export default merge(common, {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
     new ConsoleLogOnBuildWebpackPlugin()
   ],
   devServer: {
