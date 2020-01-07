@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import common from './webpack.common'
 import path from 'path'
 import apiMocker from 'mocker-api'
-import fileList from './mockFIle'
+import fileList from './mockFile'
 import ConsoleLogOnBuildWebpackPlugin from './plugins/log-plugin'
 
 export default merge(common, {

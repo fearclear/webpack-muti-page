@@ -54,11 +54,7 @@ const root = path.resolve(__dirname, '../src/pages')
 
 // 扩展名(支持的文件扩展列表)
 const extensions = {
-  default: {
-    html: '.html',
-    js: '.ts'
-  },
-  html: [".html"],
+  html: [".ejs", ".html"],
   js: [".ts", ".js"]
 }
 
@@ -79,7 +75,8 @@ for (let i = 0; i < fileList.length; i++) {
           const base = path.relative(root, fileInfo.dir)
           const chunk = base.replace(path.sep, '/') || 'index'
           entry[chunk] = entryFile
-          const filename = base ? `${base}${path.sep}${fileInfo.base}` : fileInfo.base
+          const regExp = new RegExp(`\\${fileInfo.ext}$`)
+          const filename = base ? `${base}${path.sep}${fileInfo.base}`.replace(regExp, '\.html') : fileInfo.base.replace(regExp, '\.html')
           htmlWebPackTemplate.push({
             chunks: [chunk],
             filename,
