@@ -70,6 +70,10 @@
 - `2020-01-14 16:21`: 各种bug，太坑了，ejs的坑先不踩了
 - `2020-01-14 17:11`: `file-loader`升级到`5.0.1`会出现图片无法加载的情况，回滚到`3.0.1`
 - `2020-01-14 17:58`: 引入html文件的时候提示`找不到模块`错误，需要创建一个`.d.ts`文件来处理
+- `2020-01-14 19:22`: 涉及到很多方面，layout功能暂时不做了
+  1. 最开始打算使用html模板拼接，但是使用了`html-webpack-plugin`只能指定一个入口于是放弃
+  2. 后面决定使用ejs作为模板，但是遇到了很多坑，比如`ejs-html-loader`单独使用无法解析html文件，`ejs-loader`配合template功能使用，倒是可以展示页面，但是报`__webpack__.require(...)(...) is not a function`未知错误，dev下不影响页面显示和加载，但是打包的时候又会报`callback has already used`，查找了很久之后决定放弃
+  3. 最后本来打算使用`html-loader`的模板功能配合`html-webpack-plugin`的template一起引入文件，拼接。但是`html-loader`require的文件是包含`module.export=xxx`语法的，`.default()`方法也未能如期展示，并且在header中引入图片的话也不能成功解析，于是只好放弃了
 
 ## 任务列表
 
@@ -84,7 +88,7 @@
 - [x] mock数据
 - [x] 单元测试
 - [x] `typescript`管理项目
-- [ ] layout布局
+- ~~[ ] layout布局~~
 - [ ] css模块化命名
 
 ## 目录约定
