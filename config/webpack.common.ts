@@ -49,10 +49,6 @@ export default {
       {
         test: /\.html$/,
         use: ["html-loader?interpolate"]
-      },
-      {
-        test: /\.ejs$/,
-        use: ["html-loader?interpolate", "ejs-html-loader"]
       }
     ]
   },

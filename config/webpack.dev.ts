@@ -4,7 +4,6 @@ import common from './webpack.common'
 import path from 'path'
 import apiMocker from 'mocker-api'
 import fileList from './mockFile'
-import ConsoleLogOnBuildWebpackPlugin from './plugins/log-plugin'
 
 export default merge(common, {
   mode: 'development',
@@ -20,14 +19,13 @@ export default merge(common, {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpe?g|gif)$/,
         use: ['file-loader']
       },
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ConsoleLogOnBuildWebpackPlugin()
   ],
   devServer: {
     contentBase: path.resolve(__dirname, '../src'),
