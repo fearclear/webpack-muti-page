@@ -48,7 +48,7 @@ export default merge(common, {
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [{
-          loader: "file-loader",
+          loader: "url-loader",
           options: {
             outputPath(url, resourcePath, context) {
               const relativePath = path.relative(context, resourcePath)
@@ -61,7 +61,9 @@ export default merge(common, {
                 return `${filePath}/${url}`
               }
               return `assets/${url}`
-            }
+            },
+            esModule: false,
+            limit: 8192
           }
         }]
       },

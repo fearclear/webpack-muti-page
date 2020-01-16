@@ -74,6 +74,11 @@
   1. 最开始打算使用html模板拼接，但是使用了`html-webpack-plugin`只能指定一个入口于是放弃
   2. 后面决定使用ejs作为模板，但是遇到了很多坑，比如`ejs-html-loader`单独使用无法解析html文件，`ejs-loader`配合template功能使用，倒是可以展示页面，但是报`__webpack__.require(...)(...) is not a function`未知错误，dev下不影响页面显示和加载，但是打包的时候又会报`callback has already used`，查找了很久之后决定放弃
   3. 最后本来打算使用`html-loader`的模板功能配合`html-webpack-plugin`的template一起引入文件，拼接。但是`html-loader`require的文件是包含`module.export=xxx`语法的，`.default()`方法也未能如期展示，并且在header中引入图片的话也不能成功解析，于是只好放弃了
+- `2020-01-16 10:36`: 多页应用项目不会很大，所以一般情况下不需要css模块化，而且html打包成css-module不如js来的方便
+- `2020-01-16 10:59`: 图片路径出问题了，子页面下解析以当前页面为基准导致找不到图片
+- `2020-01-16 13:24`: `file-loader`和`url-loader`加载图片错误是因为`css-loader`版本未同步更新，之前才将`file-loader`回退到`3.0.1`，现已解决，更新版本后将`url-loader`和`file-loader`的配置项加上`esModule: false`
+- `2020-01-16 13:36`: 生产环境下路径不会产生问题，但是测试环境下子目录依旧无法显示图片，所以测试环境下改用`url-loader`做了图片base64处理
+- `2020-01-16 13:58`: 图片路径解决了，在开发环境下将`publicPath`设置为`/`即可处理路径追踪问题
 
 ## 任务列表
 
@@ -89,7 +94,7 @@
 - [x] 单元测试
 - [x] `typescript`管理项目
 - ~~[ ] layout布局~~
-- [ ] css模块化命名
+- ~~[ ] css模块化命名~~
 
 ## 目录约定
 

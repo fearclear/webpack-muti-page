@@ -20,7 +20,14 @@ export default merge(common, {
       },
       {
         test: /\.(png|svg|jpe?g|gif)$/,
-        use: ['file-loader']
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
+            publicPath: '/',
+            esModule: false
+          }
+        }]
       },
     ]
   },
