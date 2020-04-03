@@ -42,8 +42,8 @@ export default merge(common, {
     },
     overlay: true,
     // proxy: {
-    //   "/kcx-commodity-platform/api": {
-    //     "target": 'https://www.kcbear.com',
+    //   "/dev/api": {
+    //     "target": 'https://www.baidu.com',
     //     "changeOrigin": true
     //   },
     // },
