@@ -38,7 +38,9 @@ export default merge(common, {
     contentBase: path.resolve(__dirname, '../src'),
     watchContentBase: true,
     before(app) {
-      apiMocker(app, fileList)
+      apiMocker(app, fileList, {bodyParserConf: {
+        defaultCharset: 'utf-8'
+      }})
     },
     overlay: true,
     // proxy: {
